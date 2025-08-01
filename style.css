@@ -17,14 +17,15 @@
    DARK MODE - VARIÁVEIS
    ================================= */
 body.dark-mode {
-    --cor-primaria: #f5f5f5;          /* Texto principal (era preto, vira quase branco) */
-    --cor-secundaria: #121212;        /* Fundo principal (era claro, vira escuro) */
-    --cor-destaque: #9d4edd;          /* Roxo um pouco mais claro para melhor contraste */
+    --cor-primaria: #f5f5f5;
+    --cor-secundaria: #121212;
+    --cor-destaque: #9d4edd;
     --cor-destaque-hover: #7b2cbf;
-    --cor-texto-claro: #ffffff;       /* Mantém branco para botões etc. */
-    --cor-texto-escuro: #dcdcdc;      /* Texto secundário (era escuro, vira cinza claro) */
-    --cor-fundo-card: #1e1e1e;        /* Fundo dos cards e header (escuro) */
+    --cor-texto-claro: #ffffff;
+    --cor-texto-escuro: #dcdcdc;
+    --cor-fundo-card: #1e1e1e;
     --sombra-padrao: 0 5px 15px rgba(0, 0, 0, 0.2);
+    --fundo-dark: url('assets/images/fundobranco.png')
 }
 
 /* =================================
@@ -37,12 +38,21 @@ body {
     background-color: var(--cor-secundaria);
     color: var(--cor-texto-escuro);
     line-height: 1.6;
-    transition: background-color 0.4s ease, color 0.4s ease; /* Transição de cores */
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 h1, h2, h3 { color: var(--cor-primaria); transition: color 0.4s ease; }
+
 h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; position: relative; }
 h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 4px; background-color: var(--cor-destaque); border-radius: 2px; }
-section { padding: 6rem 2rem; max-width: 1200px; margin: auto; overflow-x: hidden; }
+
+/* SEÇÕES COM LARGURA LIMITADA */
+section:not(#inicio) {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: auto;
+    overflow-x: hidden;
+}
+
 
 /* =================================
    CABEÇALHO E NAVEGAÇÃO
@@ -64,7 +74,7 @@ body.dark-mode header {
 }
 nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; }
 .logo { font-size: 1.8rem; font-weight: 700; color: var(--cor-primaria); text-decoration: none; }
-.nav-list { list-style: none; display: flex; gap: 2rem; }
+.nav-list { list-style: none; display: flex; gap: 2rem; flex-wrap: nowrap; }
 .nav-list a { color: var(--cor-texto-escuro); text-decoration: none; font-size: 1rem; font-weight: 500; position: relative; padding-bottom: 5px; }
 .nav-list a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--cor-destaque); transition: var(--transicao-rapida); }
 .nav-list a:hover::after { width: 100%; }
@@ -73,30 +83,295 @@ nav { display: flex; justify-content: space-between; align-items: center; max-wi
 .mobile-menu div { width: 32px; height: 3px; background: var(--cor-primaria); margin: 6px; border-radius: 3px; transition: 0.3s, background-color 0.4s ease; }
 
 /* =================================
+   SEÇÃO DE INÍCIO
+   ================================= */
+#inicio {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    /* A imagem de fundo agora tem uma transição para o movimento */
+    background-image: url('assets/images/Fund_tech_inicio.png');
+    background-size: cover;
+    background-position: top center; /* Inicia no topo */
+    transition: background-position 1s ease-in-out; /* Adiciona a transição suave */
+}
+
+body.dark-mode #inicio{
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5)), url(assets/images/fundobranco.png);
+}
+
+body.dark-mode .inicio-text h1, body.dark-mode .inicio-text p {
+    color: #1a1a1a;
+}
+
+/* Efeito de hover que move a imagem de fundo */
+#inicio:hover {
+    background-position: bottom center; /* Move a imagem para baixo no hover */
+}
+
+/* O pseudo-elemento para a opacidade continua, mas não tem animação de descida */
+#inicio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Opacidade fixa */
+    z-index: 1;
+}
+
+/* O conteúdo interno da seção de início continua limitado */
+.inicio-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Resto do CSS do início permanece igual */
+.inicio-text h1 { font-size: 3.5rem; margin-bottom: 1rem; color: #fff; }
+.inicio-text p { font-size: 1.2rem; max-width: 500px; color: #fff; }
+.inicio-image img { max-width: 400px; transition: transform 0.8s ease; }
+@media (max-width: 768px) {
+    .inicio-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .inicio-text h1 { font-size: 2.5rem; }
+    .inicio-text p { font-size: 1rem; }
+    .inicio-image img { max-width: 300px; }
+}
+
+
+
+/* =================================
    SEÇÕES GERAIS E COMPONENTES
    ================================= */
-#inicio { min-height: 90vh; display: flex; align-items: center;}
-.inicio-content { display: flex; align-items: center; justify-content: space-between; gap: 2rem; width: 100%;}
-.inicio-text h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-.inicio-text p { font-size: 1.2rem; max-width: 500px; }
-.inicio-image img { max-width: 450px; border-radius: 20px; box-shadow: var(--sombra-padrao); }
-.sobre-content { display: flex; align-items: center; gap: 4rem; }
-.sobre-image img { width: 300px; height: 300px; object-fit: cover; border-radius: 50%; border: 7px solid var(--cor-fundo-card); box-shadow: 0 0 0 5px var(--cor-destaque); transition: border-color 0.4s ease; }
+#sobre{min-width: 100%; display: flex; flex-direction: column; align-items: center;}
+.sobre-content { display: flex; align-items: center; gap: 4rem;}
+.sobre-image img {  width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 7px solid var(--cor-fundo-card);
+    box-shadow: 0 0 0 5px var(--cor-destaque);
+    transition: box-shadow 0.6s ease; /* Mudamos a transição para a box-shadow */ }
+    .sobre-image img:hover {
+    box-shadow: 0 0 0 12px var(--cor-destaque); /* Aumenta a sombra para 10px */
+}
 .sobre-text { max-width: 700px; }
 .habilidades-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
 
-/* --- Bloco de Habilidade (MODIFICADO) --- */
-.habilidade-box {
+
+
+/* =================================
+   SEÇÃO DA EMPRESA
+   ================================= */
+#empresa {
+    padding: 6rem 2rem;
+    text-align: center;
+    background-color: var(--cor-secundaria);
+    transition: var(--transicao-rapida);
+}
+
+#empresa h2 {
+    font-size: 2.5rem;
+    color: var(--cor-primaria);
+    margin-bottom: 2rem;
+}
+
+p{
+    transition: 0.5s;
+}
+
+.empresa-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.empresa-descricao {
+    font-size: 1.1rem;
+    color: var(--cor-texto-escuro);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.empresa-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--sombra-padrao);
+    transition: var(--transicao-rapida);
+}
+
+.empresa-card a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.empresa-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: var(--transicao-rapida);
+}
+
+.empresa-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.empresa-card:hover img {
+    transform: scale(1.05);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(134, 27, 223, 0.8); /* Cor de destaque com transparência */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.empresa-card:hover .overlay {
+    opacity: 1; /* Fica visível no hover */
+}
+
+.overlay span {
+    color: var(--cor-texto-claro);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+
+/* --- Dark Mode --- */
+body.dark-mode #empresa {
+    background-color: var(--cor-secundaria);
+}
+body.dark-mode .empresa-descricao {
+    color: var(--cor-texto-escuro);
+}
+body.dark-mode .overlay {
+    background-color: rgba(157, 77, 237, 0.8);
+}
+
+
+/* =================================
+   SEÇÃO DE HABILIDADES
+   ================================= */
+#habilidades {
+    padding: 6rem 2rem;
+    text-align: center;
+    background-color: var(--cor-secundaria); /* Fundo da seção */
+}
+
+#habilidades h2 {
+    font-size: 2.5rem;
+    color: var(--cor-primaria);
+    margin-bottom: 3rem;
+}
+
+.habilidades-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.habilidades-categoria-card {
     background-color: var(--cor-fundo-card);
-    padding: 1.2rem 1.8rem; /* Padding reduzido para diminuir a caixa */
-    font-size: 0.95rem; /* Tamanho da fonte levemente reduzido */
+    border-radius: 12px;
+    box-shadow: var(--sombra-padrao);
+    padding: 2rem;
+    transition: var(--transicao-rapida);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.habilidades-categoria-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.habilidades-categoria-card h3 {
+    font-size: 1.5rem;
+    color: var(--cor-destaque);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--cor-destaque);
+}
+
+.habilidades-subcontainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* --- Bloco de Habilidade (mantido e aprimorado) --- */
+.habilidade-box {
+    background-color: var(--cor-secundaria); /* Fundo da caixa de habilidade */
+    padding: 0.8rem 1.4rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    border-radius: 8px;
+    border-radius: 6px;
     box-shadow: var(--sombra-padrao);
     transition: var(--transicao-rapida);
     cursor: pointer;
+    color: var(--cor-texto-escuro);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
-.habilidade-box:hover { transform: translateY(-8px) scale(1.05); }
+.habilidade-box:hover { 
+    transform: translateY(-5px) scale(1.08); /* Efeito de hover mais suave */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    background-color: var(--cor-destaque-hover);
+    color: var(--cor-texto-claro);
+}
+
+/* Estilos de Dark Mode para Habilidades */
+body.dark-mode #habilidades {
+    background-color: var(--cor-secundaria);
+}
+body.dark-mode .habilidades-categoria-card {
+    background-color: var(--cor-fundo-card);
+}
+body.dark-mode .habilidades-categoria-card h3 {
+    color: var(--cor-destaque);
+    border-bottom: 2px solid var(--cor-destaque);
+}
+body.dark-mode .habilidade-box {
+    background-color: #2a2a2a;
+    color: var(--cor-texto-escuro);
+}
+body.dark-mode .habilidade-box:hover {
+    background-color: var(--cor-destaque-hover);
+    color: var(--cor-texto-claro);
+}
+
 
 /* =================================
    BOTÕES E CARDS
@@ -164,6 +439,16 @@ footer { text-align: center; padding: 2rem; background-color: var(--cor-primaria
 
 .icon-contato{
     width: 40px;
+    filter: drop-shadow(1px 1px 7px rgb(255, 255, 255));
+}
+
+.inicio-image img:hover { transform:translateY(-20px); transition: 0.8s;
+cursor: grab;
+}
+
+.inicio-text:hover{
+    transform:translateY(-20px); transition: 0.8s;
+cursor: grab;
 }
 
 /* =================================
@@ -187,16 +472,181 @@ footer { text-align: center; padding: 2rem; background-color: var(--cor-primaria
 #modal-body h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--cor-destaque); }
 
 /* ================================================================
+   BOTÃO FLUTUANTE DE REDES SOCIAIS (AGORA COM FLUIDEZ)
+   ================================================================ */
+.social-float-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1500;
+}
+
+.social-float-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-claro);
+    border: none;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: var(--sombra-padrao);
+    transition: transform 0.4s ease-in-out, background-color 0.3s ease-in-out;
+    flex-shrink: 0;
+    /* ROTAÇÃO DO ÍCONE */
+    transform-origin: center;
+}
+
+.social-float-btn.main-btn {
+    animation: pulse 1.5s infinite;
+}
+
+.social-float-btn.main-btn.active {
+    transform: rotate(360deg);
+    animation: none;
+}
+
+.social-links-wrapper {
+    position: absolute; /* POSICIONAMENTO ABSOLUTO É A CHAVE */
+    bottom: 4rem; /* Inicia acima do botão principal */
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.social-links-wrapper.visible {
+    max-height: 400px; /* Ajuste se tiver mais botões */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.social-link-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--cor-fundo-card);
+    color: var(--cor-destaque);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--sombra-padrao);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.social-link-item i {
+    font-size: 1.5rem;
+}
+
+.social-link-item:hover {
+    transform: translateY(-5px) scale(1.1);
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-claro);
+}
+
+.social-link-item.custom-icon {
+    background-color: var(--cor-fundo-card);
+    padding: 5px;
+}
+.social-link-item.custom-icon img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    transition: filter 0.3s ease-in-out;
+}
+
+body.dark-mode .social-link-item.custom-icon img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+.social-link-item.custom-icon:hover img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+body.dark-mode .social-link-item.custom-icon:hover img {
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+}
+
+/* Animação para os itens individuais ao aparecerem */
+.social-links-wrapper.visible .social-link-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 0.4s ease-out forwards;
+}
+
+/* Delay para cada item */
+.social-links-wrapper.visible .social-link-item:nth-child(1) { animation-delay: 0.1s; }
+.social-links-wrapper.visible .social-link-item:nth-child(2) { animation-delay: 0.2s; }
+.social-links-wrapper.visible .social-link-item:nth-child(3) { animation-delay: 0.3s; }
+.social-links-wrapper.visible .social-link-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* Animação de pulso para o botão principal */
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(134, 27, 223, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(134, 27, 223, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(134, 27, 223, 0); }
+}
+
+/* Animação para os botões aparecerem e deslizarem */
+@keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* DARK MODE para o botão flutuante */
+body.dark-mode .social-float-btn {
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-claro);
+}
+
+body.dark-mode .social-link-item {
+    background-color: var(--cor-fundo-card);
+    color: var(--cor-destaque);
+}
+
+body.dark-mode .social-link-item:hover {
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-claro);
+}
+
+
+/* ================================================================
    RESPONSIVIDADE
    ================================================================ */
 @media (max-width: 768px) {
     .nav-list { position: fixed; top: 0; right: 0; width: 65vw; height: 100vh; background: var(--cor-fundo-card); flex-direction: column; align-items: center; justify-content: space-around; transform: translateX(100%); transition: transform 0.3s ease-in, background-color 0.4s ease; z-index: 999; padding: 5rem 0; }
     .nav-list.active { transform: translateX(0); }
     .mobile-menu { display: block; z-index: 1001; }
-    body.nav-open .mobile-menu { position: fixed; right: 2rem; } /* Fixa o ícone do menu quando aberto */
+    body.nav-open .mobile-menu { position: fixed; right: 2rem; }
     .mobile-menu.active .line1 { transform: rotate(-45deg) translate(-8px, 6px); }
     .mobile-menu.active .line2 { opacity: 0; }
     .mobile-menu.active .line3 { transform: rotate(45deg) translate(-8px, -6px); }
+
+    .social-float-container {
+        bottom: 20px;
+        right: 20px;
+    }
+    .social-float-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    .social-link-item {
+        width: 45px;
+        height: 45px;
+    }
+    .social-link-item i {
+        font-size: 1.3rem;
+    }
 }
 
 @media (max-width: 700px) {

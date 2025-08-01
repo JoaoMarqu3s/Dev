@@ -13,12 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const meusLivros = [
-        { imagem: 'assets/images/livro1.png', titulo: 'Entendo algoritmos', autor: '-Aditya Y. Bhargava', descricao: 'Um livro fantástico para criar uma base sólida sobre algoritmos e lógica.', descricaoDetalhada: 'O livro ajudou...' },
-        { imagem: 'assets/images/livro2.png', titulo: 'Python para análise de dados', autor: '-Wes McKinney', descricao: 'Aprenda a utilizar python para criar análises de dados importantes', descricaoDetalhada: 'Detalhes sobre "CSS Secrets". Comente sobre as técnicas avançadas que você aprendeu com o livro e como aplica esses conceitos nos seus projetos para criar interfaces mais robustas e criativas.' },
-        { imagem: 'assets/images/livro3.jpg', titulo: 'Não Me Faça Pensar', autor: '-Steve Krug', descricao: 'Um clássico sobre usabilidade e experiência do usuário na web.', descricaoDetalhada: 'Uma análise do livro "Não Me Faça Pensar" de Steve Krug, e como os princípios de usabilidade que ele ensina são aplicados no seu trabalho diário.' },
-        { imagem: 'assets/images/livro4.jpg', titulo: 'Código Limpo', autor: '-Robert C. Martin', descricao: 'Um guia essencial para escrever código de qualidade e fácil manutenção.', descricaoDetalhada: 'Detalhes sobre como os princípios do "Código Limpo" influenciaram minha forma de programar, resultando em software mais legível e escalável.' },
-        { imagem: 'assets/images/livro5.jpg', titulo: 'Arquitetura Limpa', autor: '-Robert C. Martin', descricao: 'Guia do Artesão para Estrutura e Design de Software.', descricaoDetalhada: 'Uma análise de como os conceitos de "Arquitetura Limpa" me ajudam a projetar sistemas robustos, independentes de frameworks e testáveis.' },
-        { imagem: 'assets/images/livro6.jpg', titulo: 'Padrões de Projeto', autor: '-Erich Gamma, et al.', descricao: 'Soluções reutilizáveis para problemas comuns em desenvolvimento.', descricaoDetalhada: 'Explicação de como o estudo de Padrões de Projeto (Design Patterns) melhorou minha capacidade de resolver problemas complexos de forma elegante e eficiente.' }
+        { imagem: 'assets/images/livro1.png', titulo: 'Entendendo Algoritmos', autor: '-Aditya Y. Bhargava', descricao: 'Um guia ilustrado e prático para entender os algoritmos mais essenciais.', descricaoDetalhada: 'O livro é um guia acessível e visual para entender conceitos fundamentais de algoritmos. Ele cobre tópicos como busca binária, ordenação, grafos e programação dinâmica de uma maneira fácil de digerir, usando exemplos e ilustrações em vez de equações complexas. É perfeito para iniciantes que querem construir uma base sólida.' },
+        { imagem: 'assets/images/livro2.png', titulo: 'Python para análise de dados', autor: '-Wes McKinney', descricao: 'O guia definitivo para manipulação e análise de dados com Python.', descricaoDetalhada: 'Considerado um guia essencial para quem trabalha com dados em Python, este livro, escrito pelo criador da biblioteca pandas, ensina a usar as principais ferramentas do ecossistema de dados. Ele aborda bibliotecas como NumPy e pandas para limpar, transformar, processar e modelar dados, sendo uma referência técnica inestimável para cientistas de dados e analistas.' },
+        { imagem: 'assets/images/storytelling.png', titulo: 'Storytelling com dados', autor: '-Cole Nussbaumer Knaflic', descricao: 'Aprenda a criar visualizações de dados que realmente contam uma história.', descricaoDetalhada: 'Cole Nussbaumer Knaflic ensina a arte de comunicar insights de dados de forma eficaz. O livro foca em princípios de design para visualizações e como construir narrativas persuasivas. Você vai aprender a escolher os gráficos certos e a focar no que realmente importa para a sua audiência, transformando dados brutos em uma história envolvente e clara.' },
+        { imagem: 'assets/images/livro4.png', titulo: 'Data Science Do Zero', autor: '-Joel Grus', descricao: 'Um manual prático que ensina a construir ferramentas de Data Science do zero.', descricaoDetalhada: 'Este livro é uma jornada prática pelo universo da ciência de dados. Joel Grus, sem o uso de bibliotecas de alto nível, ensina a construir algoritmos e modelos estatísticos do zero. Você vai codificar em Python desde os conceitos básicos de matemática e probabilidade até a criação de um classificador de spam, ganhando uma compreensão profunda de como as ferramentas de Data Science realmente funcionam.' },
+        { imagem: 'assets/images/livro5.png', titulo: 'Data Science para negócios', autor: '-Foster Provot & Tom Facett', descricao: 'Aprenda a pensar como um cientista de dados para resolver problemas de negócio.', descricaoDetalhada: 'O foco deste livro é na perspectiva de negócios da ciência de dados. Ele ensina os princípios fundamentais e como aplicar técnicas de Data Science para extrair valor e insights que impulsionam a tomada de decisões estratégicas. Em vez de focar na programação, o livro orienta sobre como formular problemas de negócio de forma que possam ser resolvidos com análise de dados.' }
     ];
 
     // =================================================================
@@ -201,4 +200,17 @@ document.addEventListener('DOMContentLoaded', () => {
         applyTheme(newTheme);
         localStorage.setItem('theme', newTheme);
     });
+
+    // =================================================================
+    // LÓGICA DO BOTÃO FLUTUANTE DE REDES SOCIAIS (NOVO)
+    // =================================================================
+    const socialToggleBtn = document.getElementById('social-toggle-btn');
+    const socialLinksWrapper = document.querySelector('.social-links-wrapper');
+
+    if (socialToggleBtn && socialLinksWrapper) { // Garante que os elementos existem antes de adicionar o listener
+        socialToggleBtn.addEventListener('click', () => {
+            socialLinksWrapper.classList.toggle('visible');
+            socialToggleBtn.classList.toggle('active'); // Essa linha é a que aplica/remove a classe 'active'
+        });
+    }
 });
